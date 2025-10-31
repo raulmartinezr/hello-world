@@ -1,0 +1,44 @@
+# Taskfile.yml
+version: "3"
+
+#Pass extra args like task test -- -k "my_case" or task lint -- --fix.
+
+tasks:
+  sync:
+    desc: Sync deps (uv) incl. all extras + dev
+    cmds:
+      - uv sync --all-extras --dev
+
+  test:
+    desc: Run tests with pytest
+    cmds:
+      - uv run pytest {{.CLI_ARGS}}
+
+  bdd:
+    desc: Run BDD-marked tests only
+    cmds:
+      - uv run pytest -m bdd {{.CLI_ARGS}}
+
+  lint:
+    desc: Lint with ruff
+    cmds:
+      - uv run ruff check . {{.CLI_ARGS}}
+
+  fmt:
+    desc: Format with ruff
+    cmds:
+      - uv run ruff format . {{.CLI_ARGS}}
+
+  type:
+    desc: Type-check with mypy
+    cmds:
+      - uv run mypy src {{.CLI_ARGS}}
+
+  precommit:
+    desc: Run pre-commit against all files
+    cmds:
+      - uv run pre-commit run -a {{.CLI_ARGS}}
+
+  # Optional: a CI task that runs the common set
+  ci:
+    desc: Run lint, type, tests (no formatting ch

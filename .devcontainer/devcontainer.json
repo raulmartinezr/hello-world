@@ -1,0 +1,56 @@
+{
+  "name": "hello-world",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "3.13"
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-azuretools.vscode-docker",
+        "GitHub.vscode-pull-request-github",
+        "tamasfe.even-better-toml",
+        "ms-python.mypy-type-checker"
+      ],
+      "settings": {
+            "editor.formatOnSave": true,
+            "ruff.nativeServer": "on",
+
+            // Python extension settings MUST be top-level keys:
+            "python.defaultInterpreterPath": ".venv/bin/python",
+            "python.terminal.activateEnvironment": true,
+
+            // Optional: help VS Code find .venv
+            "python.venvPath": "${workspaceFolder}/.venv",
+
+            // Pyright/Pylance & editor prefs (can be top-level, not under [python])
+            "python.analysis.typeCheckingMode": "strict",
+
+            "[python]": {
+              "editor.tabSize": 4,
+              "editor.insertSpaces": true,
+              "editor.defaultFormatter": "charliermarsh.ruff",
+              "editor.formatOnSave": true,
+              "editor.codeActionsOnSave": {
+                "source.organizeImports": "explicit"
+              },
+              "editor.formatOnType": true
+            }
+          }
+    }
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "uv --version && uv sync --all-extras --dev",
+
+  "updateRemoteUserUID": true
+}

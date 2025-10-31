@@ -1,0 +1,71 @@
+[project]
+name = "hello-world"
+version = "0.1.0"
+description = "Hello World (CLI con uv)"
+readme = "README.md"
+requires-python = ">= 3.13"
+license = { text = "MIT" }
+authors = [{ name = "Your Name", email = "you@example.com" }]
+
+dependencies = [
+  "typer>=0.12.5",
+  "fastapi>=0.120.3",
+  "uvicorn[standard]>=0.38.0",
+  
+  "aiosqlite>=0.21.0",
+  
+  "sqlalchemy[mypy]>=2.0.44",
+  "sqlalchemy-utc>=0.14.0",
+  "alembic>=1.17.1",
+  "celery>=5.5.3",
+  "rich>=14.2.0",
+  "pydantic>=2.12.3",
+  "python-dotenv>=1.2.1",
+  "dynaconf>=3.2.12",
+  "tenacity>=9.1.2",
+  "passlib[bcrypt]>=1.7.4",
+  "uvloop>=0.22.1",
+  "httpx>=0.28.1",
+  "loguru>=0.7.3",
+]
+[project.scripts]
+hello-world = "hello_world.__main__:main"
+
+[dependency-groups]
+dev = [
+  "pytest-bdd>=7",
+  "pre-commit>=4.3.0",
+  "pytest>=8.4.2",  
+  "pytest-cov>=7.0.0",
+  "pytest-xdist>=3.8.0",
+  "ruff>=0.14.2",
+  "mypy>=1.18.2",
+  "copier>=9.10.3"
+  
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+lint.select = ["E","F","I","UP","B","C4","ARG","SIM"]
+lint.ignore = ["E501"]
+format.quote-style = "double"
+
+[tool.pytest.ini_options]
+addopts = "-q --maxfail=1"
+testpaths = ["tests"]
+markers = ["bdd: tests BDD (pytest-bdd)"]
+bdd_features_base_dir = "tests/bdd/features"
+
+[tool.coverage.run]
+branch = true
+source = ["hello_world"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
+exclude = ["tests/"]
+    

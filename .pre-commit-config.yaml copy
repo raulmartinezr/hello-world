@@ -1,0 +1,51 @@
+# .pre-commit-config.yaml
+minimum_pre_commit_version: "3.6.0"
+
+
+repos:
+  # --- Core hygiene ---
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-toml
+
+  # --- Ruff: lint, fix, and format (replaces flake8/isort/black combo) ---
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.2
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+
+  # --- Optional: mypy (type checking) ---
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.18.2
+    hooks:
+      - id: mypy
+        # Make mypy run inside your uv environment
+        language: system
+        entry: bash -c 'uv run mypy "$@"' --
+        additional_dependencies: []   # e.g. ["types-requests"]
+        pass_filenames: true
+
+  # --- Local hooks that use uv ---
+  - repo: local
+    hooks:
+      # Fail if lock needs changes (good for ensuring deps are consistent)
+      - id: uv-lock-frozen
+        name: uv lock --frozen
+        language: system
+        entry: bash -c 'uv lock --frozen'
+        pass_filenames: false
+
+      # Quick tests on push (skip on normal commit for speed)
+      - id: pytest-on-push
+        name: uv run pytest (on push)
+        language: system
+        entry: bash -c 'uv run pytest -q'
+        pass_filenames: false
+        stages: [push]
