@@ -1,5 +1,4 @@
 import sys
-from typing import Optional
 
 import typer
 from loguru import logger
@@ -16,7 +15,7 @@ app = typer.Typer(
 console = Console()
 
 
-def setup_logging(verbose: int, log_file: Optional[str] = None) -> None:
+def setup_logging(verbose: int, log_file: str|None = None) -> None:
     """
     Configure Loguru based on verbosity level.
     0 -> WARNING, 1 -> INFO, 2 -> DEBUG, >=3 -> TRACE

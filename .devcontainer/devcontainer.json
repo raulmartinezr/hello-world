@@ -11,6 +11,9 @@
     "source=${env:HOME}/.ssh,target=/home/vscode/.ssh,type=bind",
     "source=${env:HOME}/.bash_history,target=/home/vscode/.bash_history,type=bind"
   ],
+  "containerEnv": {
+    "UV_LINK_MODE": "copy"
+  },
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {},
     "ghcr.io/devcontainers/features/git:1": {},
@@ -25,7 +28,8 @@
         "ms-azuretools.vscode-docker",
         "GitHub.vscode-pull-request-github",
         "tamasfe.even-better-toml",
-        "ms-python.mypy-type-checker"
+        "ms-python.mypy-type-checker",
+        "eamodio.gitlens"
       ],
       "settings": {
             "editor.formatOnSave": true,

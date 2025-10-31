@@ -6,21 +6,11 @@ readme = "README.md"
 requires-python = ">= 3.13"
 license = { text = "MIT" }
 authors = [{ name = "Your Name", email = "you@example.com" }]
-
-[build-system]
-requires = ["uv_build>=0.9.6,<0.10.0"]
-build-backend = "uv_build"
-
-[project.scripts]
-hello-world = "hello_world.cli.__main__:main"
-
 dependencies = [
   "typer>=0.12.5",
   "fastapi>=0.120.3",
   "uvicorn[standard]>=0.38.0",
-
   "aiosqlite>=0.21.0",
-
   "sqlalchemy[mypy]>=2.0.44",
   "sqlalchemy-utc>=0.14.0",
   "alembic>=1.17.1",
@@ -36,12 +26,18 @@ dependencies = [
   "loguru>=0.7.3",
 ]
 
+[build-system]
+requires = ["uv_build>=0.9.6,<0.10.0"]
+build-backend = "uv_build"
+
+[project.scripts]
+hello-world = "hello_world.cli.__main__:main"
 
 [dependency-groups]
 dev = [
   "pytest-bdd>=7",
   "pre-commit>=4.3.0",
-  "pytest>=8.4.2",
+  "pytest>=8.4.2",  
   "pytest-cov>=7.0.0",
   "pytest-xdist>=3.8.0",
   "ruff>=0.14.2",

@@ -1,10 +1,144 @@
-    __pycache__/
-    *.pyc
-    .venv/
-    dist/
-    .build/
-    .coverage
-    htmlcov/
-    .pytest_cache/
-    uv.lock
-    
+# -----------------------------
+# Python bytecode / caches
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+*.egg
+.pytype/
+.pyre/
+
+# -----------------------------
+# Virtual environments
+# -----------------------------
+.venv/
+venv/
+ENV/
+env/
+.python-version  # pyenv local version file (keep only if you don't want it tracked)
+
+# -----------------------------
+# Packaging / build artifacts
+# -----------------------------
+build/
+dist/
+wheels/
+pip-wheel-metadata/
+*.whl
+*.manifest
+*.spec           # PyInstaller
+*.bak
+
+# -----------------------------
+# Dependency managers / caches
+# -----------------------------
+# uv
+.uv-cache/
+# pip / pip-tools
+pip-log.txt
+pip-delete-this-directory.txt
+# Poetry
+.poetry-cache/
+# Pipenv
+Pipfile.lock     # keep if you do not use Pipenv; otherwise remove this ignore
+
+# -----------------------------
+# Test / coverage / tox
+# -----------------------------
+.coverage
+.coverage.*
+htmlcov/
+.cache/
+.pytest_cache/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+.pyre/
+
+# -----------------------------
+# Jupyter / data artifacts
+# -----------------------------
+.ipynb_checkpoints/
+profile_default/
+.ipython/
+*.nbconvert.ipynb
+
+# -----------------------------
+# Django / Flask / FastAPI (runtime)
+# -----------------------------
+*.log
+instance/
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+# Uvicorn reload artifacts
+.reload*
+
+# -----------------------------
+# Env files / secrets
+# -----------------------------
+.env
+.env.*.local
+*.env
+*.envrc
+.secrets/
+# Keep template files tracked:
+!.env.example
+!.env.template
+
+# -----------------------------
+# Editors / IDEs
+# -----------------------------
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+
+# -----------------------------
+# OS cruft
+# -----------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# -----------------------------
+# Containers / Devcontainers
+# -----------------------------
+# If you generate artifacts inside the container and mount .venv/.cache,
+# they are already ignored above. Ignore buildkit/compose leftovers:
+.docker-desktop/
+.dockerignore.bak
+docker-compose.override.yml
+
+# -----------------------------
+# Logs / runtime
+# -----------------------------
+*.pid
+*.out
+*.err
+logs/
+celerybeat-schedule
+celerybeat.pid
+
+# -----------------------------
+# Temporary files
+# -----------------------------
+*.tmp
+*.temp
+~$*
+*.swp
+*.swo

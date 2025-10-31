@@ -1,6 +1,4 @@
 import subprocess
-from pathlib import Path
-from typing import Any
 
 from pytest import FixtureRequest
 from pytest_bdd import parsers, scenarios, then, when
