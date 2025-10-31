@@ -6,6 +6,11 @@
       "VARIANT": "3.13"
     }
   },
+  "mounts": [
+    "source=${env:HOME}/.aws,target=/home/vscode/.aws,type=bind,consistency=cached",
+    "source=${env:HOME}/.ssh,target=/home/vscode/.ssh,type=bind",
+    "source=${env:HOME}/.bash_history,target=/home/vscode/.bash_history,type=bind"
+  ],
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {},
     "ghcr.io/devcontainers/features/git:1": {},
