@@ -24,6 +24,7 @@ tasks:
     cmds:
       - uv run ruff check . {{.CLI_ARGS}}
 
+
   fmt:
     desc: Format with ruff
     cmds:
