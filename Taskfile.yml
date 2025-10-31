@@ -24,7 +24,6 @@ tasks:
     cmds:
       - uv run ruff check . {{.CLI_ARGS}}
 
-
   fmt:
     desc: Format with ruff
     cmds:
@@ -39,7 +38,3 @@ tasks:
     desc: Run pre-commit against all files
     cmds:
       - uv run pre-commit run -a {{.CLI_ARGS}}
-
-  # Optional: a CI task that runs the common set
-  ci:
-    desc: Run lint, type, tests (no formatting ch
