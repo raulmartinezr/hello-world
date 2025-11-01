@@ -4,6 +4,11 @@ version: "3"
 #Pass extra args like task test -- -k "my_case" or task lint -- --fix.
 
 tasks:
+
+  default:
+    desc: Show available tasks
+    cmds:
+      - task -l
   sync:
     desc: Sync deps (uv) incl. all extras + dev
     cmds:
@@ -38,3 +43,20 @@ tasks:
     desc: Run pre-commit against all files
     cmds:
       - uv run pre-commit run -a {{.CLI_ARGS}}
+
+
+includes:
+  fastapi: 
+    taskfile: .tasks/fastapi.yml
+    #dir: .tasks
+    optional: false
+    flatten: false
+    internal: false
+    aliases: [server]
+    #excludes: [internal-task]
+    #vars:
+    #  SERVICE_NAME: backend
+    #checksum: abc123...
+  
+  
+

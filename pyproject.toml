@@ -5,11 +5,27 @@ description = "Hello World (CLI con uv)"
 readme = "README.md"
 requires-python = ">= 3.13"
 license = { text = "MIT" }
-authors = [{ name = "Your Name", email = "you@example.com" }]
+authors = [
+  { name = "Raul Martinez", email = "raul.martinez.maestre@gmail.com" },
+]
+maintainers = [
+  { name = "Raul Martinez", email = "raul.martinez.maestre@gmail.com" },
+]
+classifiers = [
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Development Status :: 3 - Alpha",
+  "Framework :: Pydantic :: 2",
+  "Framework :: Pytest",
+  "Framework :: FastAPI",
+  "Framework :: Celery",
+]
+
+
 dependencies = [
   "typer>=0.12.5",
-  "fastapi>=0.120.3",
-  "uvicorn[standard]>=0.38.0",
+  "fastapi[standard]>=0.120.3",
+  "granian[pname,uvloop]>=2.5.6",
   "aiosqlite>=0.21.0",
   "sqlalchemy[mypy]>=2.0.44",
   "sqlalchemy-utc>=0.14.0",
@@ -18,12 +34,12 @@ dependencies = [
   "rich>=14.2.0",
   "pydantic>=2.12.3",
   "python-dotenv>=1.2.1",
-  "dynaconf>=3.2.12",
   "tenacity>=9.1.2",
   "passlib[bcrypt]>=1.7.4",
   "uvloop>=0.22.1",
   "httpx>=0.28.1",
   "loguru>=0.7.3",
+  "pydantic-settings>=2.11.0",
 ]
 
 [build-system]
@@ -37,12 +53,13 @@ hello-world = "hello_world.cli.__main__:main"
 dev = [
   "pytest-bdd>=7",
   "pre-commit>=4.3.0",
-  "pytest>=8.4.2",  
+  "pytest>=8.4.2",
   "pytest-cov>=7.0.0",
   "pytest-xdist>=3.8.0",
   "ruff>=0.14.2",
   "mypy>=1.18.2",
   "copier>=9.10.3",
+  "uvicorn[standard]>=0.38.0",
 ]
 
 [tool.ruff]
