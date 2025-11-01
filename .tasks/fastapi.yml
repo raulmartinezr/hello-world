@@ -2,7 +2,7 @@ version: "3"
 
 vars:
   PYTHONPATH: src
-  ENTRY: "{{.ENTRY | default `src.[[module_name]].app.__main__:app` }}"   # entry file or import string (e.g. app.main:app)
+  ENTRY: "{{.ENTRY | default `src.hello_world.app.__main__:app` }}"   # entry file or import string (e.g. app.main:app)
   HOST: "{{.HOST  | default `127.0.0.1` }}"
   PORT: "{{.PORT  | default `8000` }}"
   WORKERS: "{{.WORKERS | default `2` }}"
