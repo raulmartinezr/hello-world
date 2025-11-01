@@ -19,7 +19,6 @@ def _iter_modules(pkg_name: str) -> Iterator[str]:
         if not m.ispkg:
             yield m.name
 
-
 def include_versioned_routers(
     app: FastAPI,
     version: str,  # e.g. "v1" or "v2"
@@ -59,6 +58,7 @@ def include_versioned_routers(
                 app.include_router(r, prefix=f"/{version}")
 
 
+
 def build_app() -> FastAPI:
     # session_manager: Optional[DatabaseSessionManager] = None
     # if settings.PYROSCOPE_SERVER_ADDRESS:  # type:ignore
@@ -94,7 +94,7 @@ def build_app() -> FastAPI:
         title=f"{settings.project_name}: API endpoints",  # type: ignore[unused-ignore,unknown-type]
         openapi_url=f"/{settings.api_version}/openapi.json",  # type: ignore[unused-ignore,unknown-type]
         lifespan=lifespan,
-        version=settings.api_version,  # type: ignore[unused-ignore,unknown-type]
+        version=settings.api_version, 
     )
     include_versioned_routers(app, settings.api_version)  # loads all routers
 
