@@ -9,6 +9,12 @@ tasks:
     desc: Show available tasks
     cmds:
       - task -l
+
+  activate:
+    desc: Activates ub venv
+    cmds:
+      - source .venv/bin/activate
+      
   sync:
     desc: Sync deps (uv) incl. all extras + dev
     cmds:
