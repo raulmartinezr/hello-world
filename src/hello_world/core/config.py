@@ -11,7 +11,7 @@ class DB(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_prefix="HELLO_WORLD_",  
+        env_prefix="HELLO_WORLD_",
         env_file=".env",  # load .env
         env_nested_delimiter="__",  # HELLO_WORLD_DB__POOL_SIZE=20
         case_sensitive=False,

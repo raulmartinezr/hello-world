@@ -1,9 +1,62 @@
-from collections.abc import AsyncIterator
+import pkgutil
+from collections.abc import AsyncIterator, Iterable, Iterator
 from contextlib import asynccontextmanager
+from importlib import import_module
 
-from fastapi import FastAPI
-from hello_world.core.config import settings  # type: ignore
+from fastapi import APIRouter, FastAPI
 from loguru import logger
+
+from hello_world.core.config import settings
+
+
+def _iter_modules(pkg_name: str) -> Iterator[str]:
+    """Yield full module names under a package (non-packages only)."""
+    pkg = import_module(pkg_name)
+    pkg_path = getattr(pkg, "__path__", None)
+    if pkg_path is None:
+        return
+    for m in pkgutil.iter_modules(pkg_path, prefix=f"{pkg_name}."):
+        if not m.ispkg:
+            yield m.name
+
+
+def include_versioned_routers(
+    app: FastAPI,
+    version: str,  # e.g. "v1" or "v2"
+    base_package: str | None = __package__,  # your base
+    subpackage: str | None = None,  # where routers live under each version
+    names: Iterable[str] | None = None,  # optionally whitelist modules: {"users","health"}
+) -> None:
+    """
+    Import all modules under `<base_package>.<version>.<subpackage>` and include
+    any `router: APIRouter` or `get_router() -> APIRouter` found.
+    """
+    pkg = f"{base_package}.{version}.{subpackage}" if subpackage else f"{base_package}.{version}"
+    try:
+        # validate the package exists
+        import_module(pkg)
+    except ModuleNotFoundError as e:
+        raise ModuleNotFoundError(
+            f"Routers package not found: {pkg}. "
+            f"Expected something like {pkg}/users.py with a `router` variable."
+        ) from e
+
+    target_modules = _iter_modules(pkg)
+    if names:
+        wanted = {f"{pkg}.{n}" for n in names}
+        target_modules = (m for m in target_modules if m in wanted)
+
+    for modname in sorted(target_modules):
+        mod = import_module(modname)
+        router = getattr(mod, "router", None)
+        if isinstance(router, APIRouter):
+            app.include_router(router, prefix=f"/{version}")
+            continue
+        get_router = getattr(mod, "get_router", None)
+        if callable(get_router):
+            r = get_router()
+            if isinstance(r, APIRouter):
+                app.include_router(r, prefix=f"/{version}")
 
 
 def build_app() -> FastAPI:
@@ -41,7 +94,9 @@ def build_app() -> FastAPI:
         title=f"{settings.project_name}: API endpoints",  # type: ignore[unused-ignore,unknown-type]
         openapi_url=f"/{settings.api_version}/openapi.json",  # type: ignore[unused-ignore,unknown-type]
         lifespan=lifespan,
+        version=settings.api_version,  # type: ignore[unused-ignore,unknown-type]
     )
+    include_versioned_routers(app, settings.api_version)  # loads all routers
 
     # Build middlewares
     # Set all CORS enabled origins
