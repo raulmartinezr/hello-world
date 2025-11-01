@@ -31,7 +31,7 @@
         "ms-python.mypy-type-checker",
         "eamodio.gitlens"
       ],
-
+      "settings": {}
     }
   },
   "remoteUser": "vscode",

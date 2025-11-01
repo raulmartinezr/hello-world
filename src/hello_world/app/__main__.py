@@ -2,7 +2,7 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-from iacraft.core.config import settings  # type: ignore
+from hello_world.core.config import settings  # type: ignore
 from loguru import logger
 
 
@@ -38,8 +38,8 @@ def build_app() -> FastAPI:
             # await db_engine.dispose(close=True)
 
     app = FastAPI(
-        title=f"{settings.PROJECT_NAME.upper()}: API endpoints",  # type: ignore[unused-ignore,unknown-type]
-        openapi_url=f"/{settings.API_V1_STR}/openapi.json",  # type: ignore[unused-ignore,unknown-type]
+        title=f"{settings.project_name}: API endpoints",  # type: ignore[unused-ignore,unknown-type]
+        openapi_url=f"/{settings.api_version}/openapi.json",  # type: ignore[unused-ignore,unknown-type]
         lifespan=lifespan,
     )
 

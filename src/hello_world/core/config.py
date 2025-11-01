@@ -17,12 +17,14 @@ class DB(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_prefix="HELLO_WORLD_",  # HELLO_WORLD_FOO
+        env_prefix="HELLO_WORLD_",  
         env_file=".env",  # load .env
         env_nested_delimiter="__",  # HELLO_WORLD_DB__POOL_SIZE=20
         case_sensitive=False,
         extra="ignore",
     )
+    project_name: str = "Hello World"
+    api_version: str = "v1"
     log_file: str | None = "hello_world.log"
     env: str = "development"
     debug: bool = False

@@ -2,10 +2,11 @@ version: "3"
 
 vars:
   PYTHONPATH: src
-  ENTRY: "{{.ENTRY | default `src/hello_world/app/__main__.py` }}"   # entry file or import string (e.g. app.main:app)
+  ENTRY: "{{.ENTRY | default `src.[[module_name]].app.__main__:app` }}"   # entry file or import string (e.g. app.main:app)
   HOST: "{{.HOST  | default `127.0.0.1` }}"
   PORT: "{{.PORT  | default `8000` }}"
-  WORKERS: "{{.WORKERS | default `1` }}"
+  WORKERS: "{{.WORKERS | default `2` }}"
+  THREADS_PER_WORKER: "{{.THREADS_PER_WORKER | default `2` }}"
   FASTAPI_FLAGS: "{{.FLAGS | default `` }}"      # extra CLI flags, passed as-is
 
 
@@ -16,15 +17,13 @@ tasks:
     #deps: [deps]
     cmds:
       - pwd
-      - granian --interface asgi --reload --host {{.HOST}} --port {{.PORT}} --workers 4 --runtime-threads 2  src.hello_world.app.__main__:app
-      # - fastapi dev {{.ENTRY}} --host {{.HOST}} --port {{.PORT}} {{.FASTAPI_FLAGS}}
+      - granian --interface asgi --reload --host {{.HOST}} --port {{.PORT}} --workers {{.WORKERS}} --runtime-threads {{.THREADS_PER_WORKER}}  {{.ENTRY}}
 
   run:
     desc: Run FastAPI in production mode (no reload, multiple workers)
     #deps: [deps]
     cmds:
-      - granian --interface asgi --host 0.0.0.0 --port 5015 --workers 4 --runtime-threads 2  src.hello_world.app.__main__:app 
-      #- fastapi run {{.ENTRY}} --host {{.HOST}} --port {{.PORT}} --workers {{.WORKERS}} {{.FASTAPI_FLAGS}}
+      - granian --interface asgi --host 0.0.0.0 --port 5015 --workers {{.WORKERS}} --runtime-threads {{.THREADS_PER_WORKER}}  {{.ENTRY}}
 
   openapi:
     desc: Fetch the OpenAPI JSON (requires server running)

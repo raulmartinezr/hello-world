@@ -5,12 +5,8 @@ description = "Hello World (CLI con uv)"
 readme = "README.md"
 requires-python = ">= 3.13"
 license = { text = "MIT" }
-authors = [
-  { name = "Raul Martinez", email = "raul.martinez.maestre@gmail.com" },
-]
-maintainers = [
-  { name = "Raul Martinez", email = "raul.martinez.maestre@gmail.com" },
-]
+authors = [{ name = "Raul Martinez", email = "raul.martinez.maestre@gmail.com" }]
+maintainers = [{ name = "Raul Martinez", email = "raul.martinez.maestre@gmail.com" }]
 classifiers = [
   "Programming Language :: Python :: 3.13",
   "Topic :: Software Development :: Libraries :: Python Modules",
@@ -18,7 +14,7 @@ classifiers = [
   "Framework :: Pydantic :: 2",
   "Framework :: Pytest",
   "Framework :: FastAPI",
-  "Framework :: Celery",
+  "Framework :: Celery"
 ]
 
 
@@ -26,7 +22,6 @@ dependencies = [
   "typer>=0.12.5",
   "fastapi[standard]>=0.120.3",
   "granian[pname,uvloop]>=2.5.6",
-  "aiosqlite>=0.21.0",
   "sqlalchemy[mypy]>=2.0.44",
   "sqlalchemy-utc>=0.14.0",
   "alembic>=1.17.1",
@@ -59,7 +54,6 @@ dev = [
   "ruff>=0.14.2",
   "mypy>=1.18.2",
   "copier>=9.10.3",
-  "uvicorn[standard]>=0.38.0",
 ]
 
 [tool.ruff]
