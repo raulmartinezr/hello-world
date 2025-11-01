@@ -31,7 +31,10 @@
         "ms-python.mypy-type-checker",
         "eamodio.gitlens"
       ],
-      "settings": {}
+      "settings": {
+          "python.defaultInterpreterPath": ".venv/bin/python",
+          "python.terminal.activateEnvironment": true
+      }
     }
   },
   "remoteUser": "vscode",

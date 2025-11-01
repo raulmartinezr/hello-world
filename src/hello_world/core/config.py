@@ -1,13 +1,7 @@
 from __future__ import annotations
 
-from pathlib import Path
-
-from loguru import logger
 from pydantic import AnyUrl, BaseModel, MySQLDsn, PostgresDsn, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
-PKG_ROOT = Path(__file__).resolve().parents[0]
-logger.debug("Package root path: {}", PKG_ROOT)
 
 
 class DB(BaseModel):
@@ -17,8 +11,7 @@ class DB(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        validate_default=False,  # until we introduce valid values
-        env_prefix="HELLO_WORLD_",
+        env_prefix="HELLO_WORLD_",  
         env_file=".env",  # load .env
         env_nested_delimiter="__",  # HELLO_WORLD_DB__POOL_SIZE=20
         case_sensitive=False,
@@ -32,7 +25,7 @@ class Settings(BaseSettings):
     api_host: str = "127.0.0.1"
     api_port: int = 8000
     secret_key: SecretStr = SecretStr("CHANGE_ME")  # default (override via env)
-    db: DB = DB(url=PostgresDsn("CHANGE_ME"), pool_size=10)
+    db: DB = DB(url=AnyUrl("sqlite+aiosqlite:///file_path"), pool_size=10)
 
 
 settings = Settings()  # loads env + .env

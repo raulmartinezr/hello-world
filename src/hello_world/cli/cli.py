@@ -5,8 +5,9 @@ from loguru import logger
 from rich.console import Console
 
 from hello_world import __version__
-from hello_world.cli.config import Settings
 from hello_world.cli.hello import hello
+from hello_world.core.config import settings
+
 
 app = typer.Typer(
     help="hello-world: CLI generado con Typer + Rich",
@@ -59,9 +60,6 @@ def main(
     verbose: int = typer.Option(
         0, "--verbose", "-v", count=True, help="Aumenta verbosidad (-v, -vv)"
     ),
-    config_file: str | None = typer.Option(
-        None, "--config", "-c", help="Ruta a fichero de configuración"
-    ),
     version: bool = typer.Option(False, "--version", help="Muestra versión y sale"),
 ) -> None:
     # Callback global: carga configuración y opciones comunes.
@@ -69,10 +67,8 @@ def main(
         console.print(f"[bold]hello-world[/] {__version__}")
         raise typer.Exit(code=0)
 
-    settings = Settings.from_file(config_file) if config_file else Settings()
-
     # Optional log file coming from settings
-    log_file = getattr(settings, "log_file", None)
+    log_file = settings.log_file
 
     # Configure Loguru based on verbosity
     setup_logging(verbose=verbose, log_file=log_file)

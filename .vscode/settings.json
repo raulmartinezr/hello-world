@@ -6,9 +6,6 @@
     "python.defaultInterpreterPath": ".venv/bin/python",
     "python.terminal.activateEnvironment": true,
 
-    // Optional: help VS Code find .venv
-    "python.venvPath": "${workspaceFolder}/.venv",
-
     // Pyright/Pylance & editor prefs (can be top-level, not under [python])
     "python.analysis.typeCheckingMode": "strict",
 
