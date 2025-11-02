@@ -11,7 +11,7 @@ class DB(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_prefix="HELLO_WORLD_",  
+        env_prefix="HELLO_WORLD_",
         env_file=".env",  # load .env
         env_nested_delimiter="__",  # HELLO_WORLD_DB__POOL_SIZE=20
         case_sensitive=False,
@@ -26,6 +26,6 @@ class Settings(BaseSettings):
     api_port: int = 8000
     secret_key: SecretStr = SecretStr("CHANGE_ME")  # default (override via env)
     db: DB = DB(url=AnyUrl("sqlite+aiosqlite:///file_path"), pool_size=10)
-
+    backend_cors_origins: list[str] | None = None
 
 settings = Settings()  # loads env + .env

@@ -22,6 +22,7 @@ dependencies = [
   "typer>=0.12.5",
   "fastapi[standard]>=0.120.3",
   "granian[pname,uvloop]>=2.5.6",
+  "aiosqlite>=0.21.0",
   "sqlalchemy[mypy]>=2.0.44",
   "sqlalchemy-utc>=0.14.0",
   "alembic>=1.17.1",
@@ -42,7 +43,7 @@ requires = ["uv_build>=0.9.6,<0.10.0"]
 build-backend = "uv_build"
 
 [project.scripts]
-hello-world = "hello_world.cli.__main__:main"
+hello-world = "hello_world.cli.main:main"
 
 [dependency-groups]
 dev = [

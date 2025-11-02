@@ -75,7 +75,7 @@ hello-world/
 │     │  └─ lifecycles.py      # startup/shutdown events
 │     │
 │     ├─ cli/
-│     │  ├─ __main__.py        # `python -m myapp.cli`
+│     │  ├─ main.py        # `python -m myapp.cli`
 │     │  ├─ cli.py             # Typer app factory
 │     │  ├─ users.py           # CLI for users domain
 │     │  └─ orders.py          # CLI for orders domain
